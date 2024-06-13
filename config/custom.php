@@ -1,0 +1,5 @@
+<?php
+
+return [
+    'API_TOKEN' => 'eyJhbGciOiJIUzI1NiJ9eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxMzUwODE5MywiaWF0IjoxNzEzNTA4MTkzfQB0F1hDkGYa8mqwF0_MxN3A8Q5h_eFM0DuMrc5mZSKBk',
+];

@@ -32,16 +32,17 @@ class BookController extends Controller
     {
         $request->validate([
             'judul' => 'required',
-            'simaksi_code' => 'required',
+            // 'simaksi_code' => 'required',
             'ringkasan' => 'required',
             // 'embed' => 'required',
             'cover' => 'required|max:10024',
             'file' => 'required|max:10024',
         ]);
 
-        $buku = Book::where('simaksi_code', $request->simaksi_code)->first();
-
-        if ($buku) {
+        // dd($request->simaksi_code);
+        
+        if ($request->simaksi_code) {
+            $buku = Book::where('simaksi_code', $request->simaksi_code)->first();
             $buku->judul = $request->judul;
             $buku->slug = Str::slug($request->judul);
             $buku->user_id = Auth::id();

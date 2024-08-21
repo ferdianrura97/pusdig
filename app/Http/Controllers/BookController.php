@@ -157,6 +157,11 @@ class BookController extends Controller
     {
         $request->validate([
             'judul' => 'required',
+            // 'simaksi_code' => 'required',
+            'ringkasan' => 'required',
+            // 'embed' => 'required',
+            'cover' => 'required|max:10024',
+            'file' => 'required|max:10024',
         ]);
 
         $data = Book::findOrFail($id);
@@ -165,7 +170,6 @@ class BookController extends Controller
         $data->user_id = Auth::id();
         $data->ringkasan = $request->ringkasan;
         $data->penulis = $request->penulis;
-        $data->embed = $request->embed;
         $data->penerbit = $request->penerbit;
         $data->jml_halaman = $request->jml_halaman;
         $data->category_id = $request->category_id;
@@ -174,7 +178,7 @@ class BookController extends Controller
 
 
         $cover = $request->file('cover');
-        //$file = $request->file('file');
+        $file = $request->file('file');
 
         if ($cover) {
 
@@ -185,14 +189,15 @@ class BookController extends Controller
             $data->cover = $namacover;
         }
 
-        //if ($file) {
-          //  $namafile = $file->getClientOriginalName();
-           // $file->move('filebook', $namafile);
-           // $data->file = $namafile;
-        //}
+        if($file)
+        {
+            $namafile = rand(999,9999) . $file->getClientOriginalName();
+            $file->move('filebook', $namafile);
+            $data->file = $namafile;
+        }
 
         //dd($data);
-
+    
         $data->save();
 
         \Session::flash('sukses', 'Data Buku berhasil diubah !');

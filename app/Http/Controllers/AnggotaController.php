@@ -14,7 +14,7 @@ class AnggotaController extends Controller
     public function index()
     {
         $title = 'Data Anggota';
-        $data = User::orderBy('created_at', 'desc')->where('role_id', 2)->get();
+        $data = User::orderBy('created_at', 'desc')->get();
         return view('anggota.index', compact('title', 'data'));
     }
 
@@ -29,15 +29,19 @@ class AnggotaController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'role_id' => ['required', 'string', 'max:255'],
+            'role_id' => ['required'],
+            'jk' => ['required'],
+            'umur' => ['required'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'min:8', 'confirmed'],
         ]);
 
         $data = new User();
         $data->name = $request->name;
         $data->role_id = $request->role_id;
         $data->email = $request->email;
+        $data->jk = $request->jk;
+        $data->umur = $request->umur;
         $data->password = Hash::make($request->password);
 
         //dd($data);

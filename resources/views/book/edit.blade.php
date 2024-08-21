@@ -90,7 +90,7 @@
 
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Cover Buku</label>
+                                    <label>Cover Buku (png,jpg,jpeg)</label>
                                     <div class="input-group">
                                         <span class="input-group-btn">
                                             <span class="btn btn-default btn-file">
@@ -115,14 +115,14 @@
                                     <hr>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Embed Flipbook</label>
-                                    <input id="embed" type="text"
-                                        class="form-control @error('embed') is-invalid @enderror" name="embed"
-                                        value="{{ $dt->embed }}" placeholder="Masukan Embed Flipbook" autocomplete="off">
+                                    <label for="exampleInputEmail1">Upload Buku (Pdf)</label>
+                                    <input id="file" type="file"
+                                        class="form-control @error('file') is-invalid @enderror" name="file"
+                                        value="{{ old('file') }}" required autocomplete="off">
 
-                                    @error('embed')
+                                    @error('file')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>*masukan pdf buku</strong>
                                     </span>
                                     @enderror
                                 </div>
@@ -153,4 +153,47 @@
 @include('layouts.404')
 @endif
 
+@endsection
+
+
+@section('scripts')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(document).on('change', '.btn-file :file', function () {
+            var input = $(this),
+                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.trigger('fileselect', [label]);
+        });
+
+        $('.btn-file :file').on('fileselect', function (event, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = label;
+
+            if (input.length) {
+                input.val(log);
+            } else {
+                if (log) alert(log);
+            }
+
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img-upload').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function () {
+            readURL(this);
+        });
+    });
+
+</script>
 @endsection

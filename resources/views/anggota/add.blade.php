@@ -26,11 +26,18 @@
                         <form method="POST" action="{{ url('anggota/add/store') }}">
                             @csrf
                             <div class="input-group mb-3">
-                                <select class="form-control" name="role_id" style="width: 100%;">
+                                <select class="form-control" name="role_id" style="width: 100%;" required>
                                     <option selected="selected">Pilih Level User</option>
                                     @foreach($level as $lv)
                                     <option value="{{$lv->id}}">{{$lv->name}}</option>
                                     @endforeach
+                                </select>
+                            </div
+                            >
+                            <div class="input-group mb-3">
+                                <select class="form-control" name="jk" style="width: 100%;" required>
+                                    <option value="L">Laki Laki</option>
+                                    <option value="P">Perempuan</option>
                                 </select>
                             </div>
 
@@ -57,6 +64,22 @@
                                     placeholder="Masukan E-mail">
 
                                 @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input id="umur" type="number" class="form-control @error('umur') is-invalid @enderror"
+                                    name="umur" value="{{ old('umur') }}" required autocomplete="off" autofocus
+                                    placeholder="Masukan Umur">
+
+                                @error('umur')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

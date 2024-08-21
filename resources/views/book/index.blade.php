@@ -36,7 +36,6 @@
                                     <td>{{$key+1}}</td>
                                     <td>{{$dt->judul}}</td>
                                     <td>{{ $dt->user->name }}</td>
-                                    <td>{{ $dt->categories->name }}</td>
                                     <td>
                                         @if ($dt->is_verify == 0)
                                         <span class="badge badge-danger"> Belum diverifikasi</span>
@@ -44,6 +43,7 @@
                                         <span class="badge badge-success"> Sudah diverifikasi</span>
                                         @endif
                                     </td>
+                                    <td>{{ $dt->categories->name }}</td>
                                     <td>{{ date('d F Y', strtotime($dt->created_at)) }}</td>
                                     <td>
                                         <a href="{{url('book/edit',$dt->id)}}" id="edit"
@@ -51,7 +51,7 @@
                                         <a href="{{url('book/delete', $dt->id)}}" id="delete"
                                             class="btn btn-sm btn-flat btn-danger btn-hapus"><i class="fa fa-trash"></i>
                                         </a>
-                                        <a href="{{url('book/detail',$dt->id)}}" id="edit"
+                                        <a href="{{url('book/details',$dt->slug)}}" id="edit"
                                             class="btn btn-sm btn-flat btn-warning"><i class="fa fa-eye"></i> </a>
                                     </td>
                                 </tr>

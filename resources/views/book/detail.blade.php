@@ -26,6 +26,52 @@
                             </small>
                         </div>
                         <div class="card-body">
+                            <nav class="w-100">
+                                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                                    <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments"
+                                        role="tab" aria-controls="product-comments" aria-selected="false">Review
+                                        ({{ $dt->comments()->count() }})</a>
+                                </div>
+                            </nav>
+                            <div class="row" id="komen">
+                                <div class="col-md-12">
+                                    <div class="tab-content p-3 mr-auto" id="nav-tabContent">
+                                        <div class="tab-pane fade" id="product-comments" role="tabpanel"
+                                            aria-labelledby="product-comments-tab">
+                                            <hr>
+                                            <!-- Post -->
+                                            @foreach ($dt->comments as $cm)
+                                            <div class="post clearfix mt-4">
+                                                <div class="user-block">
+                                                    <img class="img-circle img-bordered-sm"
+                                                        src="https://cdn.iconscout.com/icon/free/png-512/avatar-372-456324.png"
+                                                        alt="User Image">
+                                                    @if ($cm->user->role_id == 1)
+                                                    <span class="username">
+                                                        <a href="#">{{ $cm->user->name }} <i class="fa fa-check-circle"
+                                                                style="color: blue;"></i></a>
+                                                    </span>
+                                                    <span class="description">Admin - Sent at
+                                                        {{ \Carbon\Carbon::parse($cm->created_at)->diffForHumans() }} </span>
+                                                    @else
+                                                    <span class="username">
+                                                        <a href="#">{{ $cm->user->name }}</a>
+                                                    </span>
+                                                    <span class="description">Sent at
+                                                        {{ \Carbon\Carbon::parse($cm->created_at)->diffForHumans() }} </span>
+                                                    @endif
+                                                </div>
+                                                <!-- /.user-block -->
+                                                <p>
+                                                    {!! $cm->text !!}
+                                                </p>
+                                            </div>
+                                            @endforeach
+                                            <!-- /.post -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a target="_blank" class="btn btn-primary btn-lg btn-block mt-2" href="{{ url('book/read', $dt->slug) }}">
                                 <i class="fas fa-book"></i> Baca Sekarang
                             </a>
